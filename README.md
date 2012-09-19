@@ -1,54 +1,57 @@
-debt_check
-==========
-
 Checking debts paid in DIBS with the library system
 
 ###################################################
 
-Check af regninger
+#Check af regninger
+
 Når en regning betales i DIBS-vinduet trækkes pengene og der foretages et callback fra dibs til ding-serveren
 som derefter foretager et kald via alma til biblioteksserveren.
 Erfaringen viser at der kan gå ting galt i denne proces således at der er trukket et beløb, 
 men regningen er ikke registreret i bibliotekssystemet. 
+Det er heldigvis få regninger pr måned som er ramt.
 
 Fejlen er beskrevet i lighthouse, https://libraryding.lighthouseapp.com/projects/27862/tickets/1742
 
-Regningen er dog registreret på ding-serveren, så ved at sammenligne tallene dér med tal fra biblioteksserveren
+Regningen er registreret på ding-serveren, så ved at sammenligne tallene dér med tal fra biblioteksserveren
 kan disse fejl findes og det er hvad dette script gør.
 
 Kaldes via drush direkte på serveren:
 
-drush php-script check_payments.php {parametre}
+    drush php-script check_payments.php {parametre}
 
 Parametre er følgende:
-email={liste af emails afskilt af komma}
-Optional, sender resultatet til disse emails
 
-always
-Optional, hvis sat betyder det at der altid sendes en mail uanset om der er fejl eller ej. Emnefelt/indhold vil afhænge af om der er fejl eller ej.
+--email={liste af emails afskilt af komma}  
+optional, sender resultatet til disse emails
 
-days={dage}
-Default=2, checker regninger dette antal dage
+--always  
+optional, hvis sat betyder det at der altid sendes en mail uanset om der er fejl eller ej.
+Emnefelt/indhold vil afhænge af om der er fejl eller ej.
 
-print
-Optional, udskriver resultatet til consol - kan bruges når script køres manuelt
+--days={dage}  
+default=2, checker regninger {dage} dage fra nu 
 
-Eksempler:
+--print  
+optional, udskriver resultatet til consol - kan bruges når script køres manuelt
+
+Eksempler:  
 Manuelt fra console:
-{sti-til-drush}/drush -r {sti-til-produktionsite} php-script {sti-til-script}/check_payments.php --days=2 --print
+
+    {sti-til-drush}/drush -r {sti-til-produktionsite} php-script {sti-til-script}/check_payments.php --days=2 --print
 
 Som et cronjob
-0 7 * * * {sti-til-drush}/drush -r {sti-til-produktionsite} php-script {sti-til-script}/check_payments.php --email=myemail@ting.dk --days=2 --always > /dev/null 2>&1
+
+    0 7 * * * {sti-til-drush}/drush -r {sti-til-produktionsite} php-script {sti-til-script}/check_payments.php --email=myemail@ting.dk --days=2 --always > /dev/null 2>&1
 
 Mailen der sendes vil indeholde de fundne fejl på denne form:
-
+```
 {dato}
 orderid: {orderid}
 ddelibra: {regningsnumre}
 dibs: {beløb trukket / registreret i dibs}
 alma: {beløb registreret i bibliotekssystemet}
 parturl: {del af url som kan bruges når regningen skal godkendes}
-
+```
 Orderid kan benyttes til at søge regningen frem i DIBS-admin systemet og 
 regningsnumre kan benyttes til at finde regningen i regningsmodulet i ddelibraGUI / Bibliotekssystemet.
 
@@ -76,5 +79,10 @@ hvorimod 2 og 3 stadig kan findes frem.
 Prefixets parturl med Alma baseurl kan regningen gennemføres i bibliotekssystemet, 
 men om det er muligt i praksis vil afhænge af netværk/firewalls. 
 Det ville dog kunne gøres fra dingserveren da der herfra netop er hul igennem til alma.
+
+Det er sket at scriptet (kørt fra consolen) har givet fejl på en måde der kunne tyde på
+at forbindelsen til alma pludselig er afbrudt.
+Derfor er der lagt en pause ind, så alma ikke får sendt mange request på en gang 
+og der er brugt en parameter always således at man altid får en mail når scriptet er kørt.
 
 Scriptet kan benyttes indtil anden løsning er integreret i ding.
