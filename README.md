@@ -52,28 +52,29 @@ dibs: {beløb trukket / registreret i dibs}
 alma: {beløb registreret i bibliotekssystemet}
 parturl: {del af url som kan bruges når regningen skal godkendes}
 ```
+Dato er tidspunktet da regningen blev oprettet i ding, hvilket ikke er det samme tidspunkt når regningen er gennemført.
 Orderid kan benyttes til at søge regningen frem i DIBS-admin systemet og 
 regningsnumre kan benyttes til at finde regningen i regningsmodulet i ddelibraGUI / Bibliotekssystemet.
 
 
 Følgende typer af fejl kan forekomme:
 
-Alma er 0 (nul) og betalingen er ikke foretaget i bibliotekssystemet. 
-Den normale situation der opstår når regningerne er fejlet. 
-Løsning er at den gennemføres manuelt i ddelibragui eller vha parturl.
+1. Alma er 0 (nul) og betalingen er ikke foretaget i bibliotekssystemet. 
+   Den normale situation der opstår når regningerne er fejlet. 
+   Løsning er at den gennemføres manuelt i ddelibragui eller vha parturl.
 
-Alma er ikke nul men forskellig fra værdien af dibs. 
-Regningen er gennemført i biblioteksssystemet. 
-Ser ud til at være en fejl i alma når regningen (noget af den) tidligere er betalt kontant. 
-Løsning: intet skal gøres.
+2. Alma er ikke nul men forskellig fra værdien af dibs. 
+   Regningen er gennemført i biblioteksssystemet. 
+   Ser ud til at være en fejl i alma når regningen (noget af den) tidligere er betalt kontant. 
+   Løsning: intet skal gøres.
 
-Alma er 0 (nul) men regningen er betalt i bibliotekssystemet. 
-Låneren har altså efterfølgende betalt regningen igen. Det kan enten være på samme website eller 
-(hvis biblioteket tilbyder det) på ddelibraWeb. 
-I ddelibraGui vil orderid (af den korrekt gennemførte regning) fremgå. 
-Løsning her er at tilbageføre beløbet for regningen med fejl.
+3. Alma er 0 (nul) men regningen er betalt i bibliotekssystemet. 
+   Låneren har altså efterfølgende betalt regningen igen. Det kan enten være på samme website eller 
+   (hvis biblioteket tilbyder det) på ddelibraWeb. 
+   I ddelibraGui vil orderid (af den korrekt gennemførte regning) fremgå. 
+   Løsning her er at tilbageføre beløbet for regningen med fejl.
 
-Køres scriptet efter regningen er håndteret vil regninger af type 1) forsvinde, 
+Køres scriptet efter regningen er håndteret vil regninger af type 1 forsvinde, 
 hvorimod 2 og 3 stadig kan findes frem.
 
 Prefixets parturl med Alma baseurl kan regningen gennemføres i bibliotekssystemet, 
