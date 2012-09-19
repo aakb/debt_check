@@ -20,17 +20,17 @@ Kaldes via drush direkte på serveren:
 
 drush php-script check_payments.php {parametre}
 
-parametre er følgende:
---email={liste af emails afskilt af komma}
+Parametre er følgende:
+email={liste af emails afskilt af komma}
 Optional, sender resultatet til disse emails
 
---always
+always
 Optional, hvis sat betyder det at der altid sendes en mail uanset om der er fejl eller ej. Emnefelt/indhold vil afhænge af om der er fejl eller ej.
 
---days={dage}
+days={dage}
 Default=2, checker regninger dette antal dage
 
---print
+print
 Optional, udskriver resultatet til consol - kan bruges når script køres manuelt
 
 Eksempler:
@@ -76,3 +76,5 @@ hvorimod 2 og 3 stadig kan findes frem.
 Prefixets parturl med Alma baseurl kan regningen gennemføres i bibliotekssystemet, 
 men om det er muligt i praksis vil afhænge af netværk/firewalls. 
 Det ville dog kunne gøres fra dingserveren da der herfra netop er hul igennem til alma.
+
+Scriptet kan benyttes indtil anden løsning er integreret i ding.
