@@ -86,4 +86,4 @@ at forbindelsen til alma pludselig er afbrudt.
 Derfor er der lagt en pause ind, så alma ikke får sendt mange request på en gang 
 og der er brugt en parameter always således at man altid får en mail når scriptet er kørt.
 
-Scriptet kan benyttes indtil anden løsning er integreret i ding.
+Afhængig af det lokale bibliotekssystem vil regninger blive slettet efter et bestemt antal dage - det betyder at gamle regninger som er slettet i bibliotekssystemet ikke kan checkes. For at håndtere dette indeholder scriptet et nødstop i form af, at hvis der er 4 fejl i rækkefølge vil scriptet afslutte. 
