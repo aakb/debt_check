@@ -72,7 +72,7 @@ Følgende typer af fejl kan forekomme:
    Låneren har altså efterfølgende betalt regningen igen. Det kan enten være på samme website eller 
    (hvis biblioteket tilbyder det) på ddelibraWeb. 
    I ddelibraGui vil orderid (af den korrekt gennemførte regning) fremgå. 
-   Løsning her er at tilbageføre beløbet for regningen med fejl.
+   Løsning her er at tilbageføre beløbet i DIBS-admin for regningen med fejl.
 
 Køres scriptet efter regningen er håndteret vil regninger af type 1 forsvinde, 
 hvorimod 2 og 3 stadig kan findes frem.
